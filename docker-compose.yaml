@@ -2,6 +2,7 @@ version: '3.6'
 
 services:
   velib_api:
+    image: velib_api
     build: .
     command: sh -c 'sleep 3; python velib_api.py --init'
     networks:

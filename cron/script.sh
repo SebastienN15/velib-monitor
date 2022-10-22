@@ -1,0 +1,2 @@
+source ~/Documents/velib-monitor/src/.env
+docker run -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_DB=$POSTGRES_DB -e DB_HOST=$DB_HOST -e PORT=$PORT -v /var/run/docker.sock:/var/run/docker.sock --network src_common-net velib_api

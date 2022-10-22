@@ -81,10 +81,14 @@ def init():
   main()
 
 
+def add_migration_to_db_query(migration_number):
+  return f"INSERT INTO migration (num) VALUES ({migration_number})"
+
+
 def create_tables():
   create_migration_table_queries = [
     "CREATE TABLE IF NOT EXISTS migration (num INT, time TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP)",
-    "INSERT INTO migration (num) VALUES (0)"
+    add_migration_to_db_query(0)
   ]
 
   get_migration_number_query = "SELECT MAX(num) from migration"
@@ -115,9 +119,10 @@ def create_tables():
       cur.execute(get_migration_number_query)
       mingration_number = cur.fetchall()[0][0]
 
-      for query in migrations[mingration_number:]:
+      for number, query in enumerate(migrations[mingration_number:]):
         print(f"running query : {query}")
         cur.execute(query)
+        cur.execute(add_migration_to_db_query(number + mingration_number + 1))
 
 
 if __name__ == "__main__":

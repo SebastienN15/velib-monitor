@@ -1,0 +1,1 @@
+* * * * * ~/Documents/velib-monitor/src/cron/script.sh > /var/log.txt 2>&1
